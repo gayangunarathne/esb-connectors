@@ -32,7 +32,6 @@ import org.wso2.carbon.connector.util.ResultPayloadCreater;
 
 import javax.xml.stream.XMLStreamException;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.OutputStream;
 
 public class FileAppend extends AbstractConnector implements Connector {
@@ -54,10 +53,6 @@ public class FileAppend extends AbstractConnector implements Connector {
 		                 getParameter(messageContext, "content") == null ? "" : getParameter(
 		                                                                                     messageContext,
 		                                                                                     "content").toString();
-		String ftpFileLocation =
-		                         getParameter(messageContext, "ftpfilelocation") == null ? "" : getParameter(
-		                                                                                                     messageContext,
-		                                                                                                     "ftpfilelocation").toString();
 
 		String filebeforepprocess =
 		                            getParameter(messageContext, "filebeforepprocess") == null ? "" : getParameter(
@@ -76,7 +71,7 @@ public class FileAppend extends AbstractConnector implements Connector {
 		                                                                                                messageContext,
 		                                                                                                "offset").toString());
 		if (log.isDebugEnabled()) {
-			log.debug("File append start with" + filename.toString());
+			log.debug("File append start with" + filename);
 		}
 
 		boolean resultStatus = false;
@@ -94,9 +89,9 @@ public class FileAppend extends AbstractConnector implements Connector {
 
 	/**
 	 * Generate the result
-	 * 
-	 * @param messageContext
-	 * @param resultStatus
+	 *
+	 * @param messageContext Message context
+	 * @param resultStatus Result Status
 	 */
 	private void generateResult(MessageContext messageContext, boolean resultStatus) {
 		ResultPayloadCreater resultPayload = new ResultPayloadCreater();
@@ -106,13 +101,13 @@ public class FileAppend extends AbstractConnector implements Connector {
 			element = resultPayload.performSearchMessages(responce);
 			resultPayload.preparePayload(messageContext, element);
 		} catch (XMLStreamException e) {
-			log.error(e.getMessage());
+			log.error("XML stream exception when generating results", e);
 			handleException(e.getMessage(), messageContext);
 		} catch (IOException e) {
-			log.error(e.getMessage());
+			log.error("IO exception when generating results", e);
 			handleException(e.getMessage(), messageContext);
 		} catch (JSONException e) {
-			log.error(e.getMessage());
+			log.error("JSON exception when generating result", e);
 			handleException(e.getMessage(), messageContext);
 		}
 
@@ -122,20 +117,19 @@ public class FileAppend extends AbstractConnector implements Connector {
 	 * 
 	 * Append the content to the existing file
 	 * 
-	 * @param fileLocation
-	 * @param filename
-	 * @param content
-	 * @param filebeforepprocess
-	 * @param fileafterprocsess
+	 * @param fileLocation File Location
+	 * @param filename File Name
+	 * @param content Content
+	 * @param filebeforepprocess File before process
+	 * @param fileafterprocsess File after process
 	 */
 	private boolean appendFile(String fileLocation, String filename, String content,
 	                           String encoding, String filebeforepprocess,
 	                           String fileafterprocsess, int offset) throws IOException {
 
-		OutputStream out = null;
-		InputStream in = null;
-		boolean resultStatus = false;
+		OutputStream out;
 
+		boolean resultStatus=false;
 		FileSystemManager manager = VFS.getManager();
 		// if the file does not exist, this method creates it
 		FileSystemOptions opts = FTPSiteUtils.createDefaultOptions();
@@ -168,7 +162,6 @@ public class FileAppend extends AbstractConnector implements Connector {
 		if (fileObj != null) {
 			fileObj.close();
 		}
-
 		resultStatus = true;
 
 		return resultStatus;

@@ -35,8 +35,8 @@ public class ResultPayloadCreater {
 	/**
 	 * Prepare pay load
 	 * 
-	 * @param messageContext
-	 * @param element
+	 * @param messageContext Message Context
+	 * @param element element
 	 */
 	public void preparePayload(MessageContext messageContext, OMElement element) {
 
@@ -48,8 +48,8 @@ public class ResultPayloadCreater {
 	/**
 	 * Create a OMElement
 	 * 
-	 * @param output
-	 * @return
+	 * @param output Output
+	 * @return OMElement
 	 * @throws XMLStreamException
 	 * @throws IOException
 	 * @throws JSONException
@@ -60,10 +60,9 @@ public class ResultPayloadCreater {
 		OMElement resultElement;
 		if (!output.equals("")) {
 			OMFactory factory = OMAbstractFactory.getOMFactory();
-			OMNamespace ns = factory.createOMNamespace("", "ns");
-			resultElement=factory.createOMElement("result",ns);
+			OMNamespace ns = factory.createOMNamespace("file-connector", "ns");
+			resultElement = factory.createOMElement("result", ns);
 			resultElement.setText(output);
-			//resultElement = AXIOMUtil.stringToOM(output);
 		} else {
 			resultElement = AXIOMUtil.stringToOM("<result></></result>");
 		}
@@ -75,8 +74,8 @@ public class ResultPayloadCreater {
 	/**
 	 * Send error status
 	 * 
-	 * @param ctxt
-	 * @param e
+	 * @param ctxt Message Context
+	 * @param e Exception
 	 */
 
 	public static void sendErrorStatus(MessageContext ctxt, Exception e) {

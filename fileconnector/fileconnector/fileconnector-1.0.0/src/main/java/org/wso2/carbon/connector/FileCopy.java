@@ -95,13 +95,13 @@ public class FileCopy extends AbstractConnector implements Connector {
 			element = resultPayload.performSearchMessages(responce);
 			resultPayload.preparePayload(messageContext, element);
 		} catch (XMLStreamException e) {
-			log.error(e.getMessage());
+			log.error("XML stream exception when generating results", e);
 			handleException(e.getMessage(), messageContext);
 		} catch (IOException e) {
-			log.error(e.getMessage());
+			log.error("IO exception when generating results", e);
 			handleException(e.getMessage(), messageContext);
 		} catch (JSONException e) {
-			log.error(e.getMessage());
+			log.error("JSON exception when generating result", e);
 			handleException(e.getMessage(), messageContext);
 		}
 
