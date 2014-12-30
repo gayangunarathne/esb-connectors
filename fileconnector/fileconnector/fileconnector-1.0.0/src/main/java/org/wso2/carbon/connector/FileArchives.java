@@ -17,13 +17,6 @@
  */
 package org.wso2.carbon.connector;
 
-import java.io.File;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collection;
-
-import javax.xml.stream.XMLStreamException;
-
 import org.apache.axiom.om.OMElement;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.filefilter.TrueFileFilter;
@@ -38,6 +31,12 @@ import org.wso2.carbon.connector.util.ArchiveType;
 import org.wso2.carbon.connector.util.FileCompressUtil;
 import org.wso2.carbon.connector.util.FilePattenMatcher;
 import org.wso2.carbon.connector.util.ResultPayloadCreater;
+
+import javax.xml.stream.XMLStreamException;
+import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collection;
 
 public class FileArchives extends AbstractConnector implements Connector {
 
@@ -81,9 +80,9 @@ public class FileArchives extends AbstractConnector implements Connector {
 		                                                                                                                                messageContext,
 		                                                                                                                                "archivedirectory").toString());
 		if (log.isDebugEnabled()) {
-			log.info("File creation started..." + filename.toString());
-			log.info("File Location..." + fileLocation.toString());
-			log.info("File content..." + suffixs.toString());
+			log.debug("File creation started..." + filename.toString());
+			log.debug("File Location..." + fileLocation.toString());
+			log.debug("File content..." + suffixs.toString());
 		}
 
 		boolean resultStatus = false;
@@ -145,7 +144,7 @@ public class FileArchives extends AbstractConnector implements Connector {
 		}
 		generateResults(messageContext, resultStatus);
 		if (log.isDebugEnabled()) {
-			log.info("File archived......");
+			log.debug("File archived......");
 		}
 
 	}

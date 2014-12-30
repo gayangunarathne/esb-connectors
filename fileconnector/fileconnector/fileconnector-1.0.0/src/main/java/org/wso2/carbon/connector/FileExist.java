@@ -17,10 +17,6 @@
  */
 package org.wso2.carbon.connector;
 
-import java.io.IOException;
-
-import javax.xml.stream.XMLStreamException;
-
 import org.apache.axiom.om.OMElement;
 import org.apache.commons.vfs2.FileObject;
 import org.apache.commons.vfs2.FileSystemException;
@@ -33,6 +29,9 @@ import org.wso2.carbon.connector.core.ConnectException;
 import org.wso2.carbon.connector.core.Connector;
 import org.wso2.carbon.connector.util.FTPSiteUtils;
 import org.wso2.carbon.connector.util.ResultPayloadCreater;
+
+import javax.xml.stream.XMLStreamException;
+import java.io.IOException;
 
 public class FileExist extends AbstractConnector implements Connector {
 
@@ -126,7 +125,7 @@ public class FileExist extends AbstractConnector implements Connector {
 			isFileExist = true;
 		}
 		if (log.isDebugEnabled()) {
-			log.info("File exist " + isFileExist);
+			log.debug("File exist " + isFileExist);
 		}
 		return isFileExist;
 	}

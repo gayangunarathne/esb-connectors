@@ -17,21 +17,11 @@
  */
 package org.wso2.carbon.connector;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-
-import javax.xml.stream.XMLStreamException;
-
 import org.apache.axiom.om.OMElement;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.apache.commons.vfs2.FileObject;
-import org.apache.commons.vfs2.FileSystemManager;
-import org.apache.commons.vfs2.FileSystemOptions;
-import org.apache.commons.vfs2.Selectors;
-import org.apache.commons.vfs2.VFS;
+import org.apache.commons.vfs2.*;
 import org.apache.synapse.MessageContext;
 import org.codehaus.jettison.json.JSONException;
 import org.wso2.carbon.connector.core.AbstractConnector;
@@ -39,6 +29,11 @@ import org.wso2.carbon.connector.core.ConnectException;
 import org.wso2.carbon.connector.core.Connector;
 import org.wso2.carbon.connector.util.FTPSiteUtils;
 import org.wso2.carbon.connector.util.ResultPayloadCreater;
+
+import javax.xml.stream.XMLStreamException;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 
 public class FileCopy extends AbstractConnector implements Connector {
 
@@ -67,9 +62,9 @@ public class FileCopy extends AbstractConnector implements Connector {
 		                                                                                                              messageContext,
 		                                                                                                              "isfolder").toString());
 		if (log.isDebugEnabled()) {
-			log.info("File creation started..." + filename.toString());
-			log.info("File Location..." + fileLocation.toString());
-			log.info("File content..." + fileBeforeProcess.toString());
+			log.debug("File creation started..." + filename.toString());
+			log.debug("File Location..." + fileLocation.toString());
+			log.debug("File content..." + fileBeforeProcess.toString());
 		}
 
 		boolean resultStatus = false;
@@ -141,7 +136,7 @@ public class FileCopy extends AbstractConnector implements Connector {
 
 		resultStatus = true;
 		if (log.isDebugEnabled()) {
-			log.info("File copying completed..." + filename.toString());
+			log.debug("File copying completed..." + filename.toString());
 		}
 		return resultStatus;
 	}

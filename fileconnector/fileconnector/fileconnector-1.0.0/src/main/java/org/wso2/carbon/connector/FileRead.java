@@ -17,11 +17,6 @@
  */
 package org.wso2.carbon.connector;
 
-import java.io.IOException;
-import java.io.InputStream;
-
-import javax.xml.stream.XMLStreamException;
-
 import org.apache.axiom.om.OMElement;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.vfs2.FileObject;
@@ -35,6 +30,10 @@ import org.wso2.carbon.connector.core.ConnectException;
 import org.wso2.carbon.connector.core.Connector;
 import org.wso2.carbon.connector.util.FTPSiteUtils;
 import org.wso2.carbon.connector.util.ResultPayloadCreater;
+
+import javax.xml.stream.XMLStreamException;
+import java.io.IOException;
+import java.io.InputStream;
 
 public class FileRead extends AbstractConnector implements Connector {
 
@@ -63,7 +62,7 @@ public class FileRead extends AbstractConnector implements Connector {
 		                                                                                       "encoding").toString();
 
 		if (log.isDebugEnabled()) {
-			log.info("File read start with" + filename.toString());
+			log.debug("File read start with" + filename.toString());
 		}
 
 		StringBuilder sb = new StringBuilder();

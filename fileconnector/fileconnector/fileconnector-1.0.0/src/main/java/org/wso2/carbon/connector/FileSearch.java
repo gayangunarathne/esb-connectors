@@ -17,23 +17,12 @@
  */
 package org.wso2.carbon.connector;
 
-import java.io.File;
-import java.io.IOException;
-import java.util.Collection;
-import java.util.Iterator;
-
-import javax.xml.stream.XMLStreamException;
-
 import org.apache.axiom.om.OMElement;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.filefilter.IOFileFilter;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.apache.commons.vfs2.FileObject;
-import org.apache.commons.vfs2.FileSystemException;
-import org.apache.commons.vfs2.FileSystemManager;
-import org.apache.commons.vfs2.FileSystemOptions;
-import org.apache.commons.vfs2.VFS;
+import org.apache.commons.vfs2.*;
 import org.apache.synapse.MessageContext;
 import org.codehaus.jettison.json.JSONException;
 import org.wso2.carbon.connector.core.AbstractConnector;
@@ -42,6 +31,12 @@ import org.wso2.carbon.connector.core.Connector;
 import org.wso2.carbon.connector.util.FTPSiteUtils;
 import org.wso2.carbon.connector.util.FilePattenMatcher;
 import org.wso2.carbon.connector.util.ResultPayloadCreater;
+
+import javax.xml.stream.XMLStreamException;
+import java.io.File;
+import java.io.IOException;
+import java.util.Collection;
+import java.util.Iterator;
 
 public class FileSearch extends AbstractConnector implements Connector {
 
@@ -67,7 +62,7 @@ public class FileSearch extends AbstractConnector implements Connector {
 		                                                                                                                        messageContext,
 		                                                                                                                        "searchinlocal").toString());
 		if (log.isDebugEnabled()) {
-			log.info("File pattern..." + filepattern.toString());
+			log.debug("File pattern..." + filepattern.toString());
 		}
 		if (!searchInLocal) {
 
@@ -81,7 +76,7 @@ public class FileSearch extends AbstractConnector implements Connector {
 
 			generateOutput(messageContext, sb);
 			if (log.isDebugEnabled()) {
-				log.info("File searching completed..." + filepattern.toString());
+				log.debug("File searching completed..." + filepattern.toString());
 			}
 		} else {
 
@@ -125,7 +120,7 @@ public class FileSearch extends AbstractConnector implements Connector {
 			}
 			sb.append("</result>");
 			if (log.isDebugEnabled()) {
-				log.info(sb.toString());
+				log.debug(sb.toString());
 			}
 			generateOutput(messageContext, sb);
 

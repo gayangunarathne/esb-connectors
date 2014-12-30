@@ -17,12 +17,6 @@
  */
 package org.wso2.carbon.connector;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-
-import javax.xml.stream.XMLStreamException;
-
 import org.apache.axiom.om.OMElement;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.logging.Log;
@@ -38,6 +32,11 @@ import org.wso2.carbon.connector.core.ConnectException;
 import org.wso2.carbon.connector.core.Connector;
 import org.wso2.carbon.connector.util.FTPSiteUtils;
 import org.wso2.carbon.connector.util.ResultPayloadCreater;
+
+import javax.xml.stream.XMLStreamException;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 
 public class FileCopyInStream extends AbstractConnector implements Connector {
 
@@ -59,8 +58,8 @@ public class FileCopyInStream extends AbstractConnector implements Connector {
 		                                                                                                     messageContext,
 		                                                                                                     "newfilelocation").toString();
 		if (log.isDebugEnabled()) {
-			log.info("File creation started..." + filename.toString());
-			log.info("File Location..." + fileLocation.toString());
+			log.debug("File creation started..." + filename.toString());
+			log.debug("File Location..." + fileLocation.toString());
 		}
 
 		boolean resultStatus = false;
@@ -130,7 +129,7 @@ public class FileCopyInStream extends AbstractConnector implements Connector {
 		resultStatus = true;
 
 		if (log.isDebugEnabled()) {
-			log.info("File copying completed..." + filename.toString());
+			log.debug("File copying completed..." + filename.toString());
 		}
 
 		return resultStatus;

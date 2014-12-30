@@ -17,22 +17,11 @@
  */
 package org.wso2.carbon.connector;
 
-import java.io.IOException;
-import java.io.OutputStream;
-
-import javax.xml.stream.XMLStreamException;
-
 import org.apache.axiom.om.OMElement;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.apache.commons.vfs2.FileContent;
-import org.apache.commons.vfs2.FileObject;
-import org.apache.commons.vfs2.FileSystemException;
-import org.apache.commons.vfs2.FileSystemManager;
-import org.apache.commons.vfs2.FileSystemOptions;
-import org.apache.commons.vfs2.Selectors;
-import org.apache.commons.vfs2.VFS;
+import org.apache.commons.vfs2.*;
 import org.apache.synapse.MessageContext;
 import org.codehaus.jettison.json.JSONException;
 import org.wso2.carbon.connector.core.AbstractConnector;
@@ -40,6 +29,10 @@ import org.wso2.carbon.connector.core.ConnectException;
 import org.wso2.carbon.connector.core.Connector;
 import org.wso2.carbon.connector.util.FTPSiteUtils;
 import org.wso2.carbon.connector.util.ResultPayloadCreater;
+
+import javax.xml.stream.XMLStreamException;
+import java.io.IOException;
+import java.io.OutputStream;
 
 public class FileCreate extends AbstractConnector implements Connector {
 
@@ -87,7 +80,7 @@ public class FileCreate extends AbstractConnector implements Connector {
 		                                                                                                                messageContext,
 		                                                                                                                "isfolder").toString());
 		if (log.isDebugEnabled()) {
-			log.info("File creation started..." + filename);
+			log.debug("File creation started..." + filename);
 		}
 		boolean resultStatus = false;
 		try {
@@ -102,7 +95,7 @@ public class FileCreate extends AbstractConnector implements Connector {
 		generateOutput(messageContext, resultStatus);
 
 		if (log.isDebugEnabled()) {
-			log.info("File create completed....");
+			log.debug("File create completed....");
 		}
 
 	}

@@ -17,18 +17,10 @@
  */
 package org.wso2.carbon.connector;
 
-import java.io.IOException;
-
-import javax.xml.stream.XMLStreamException;
-
 import org.apache.axiom.om.OMElement;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.apache.commons.vfs2.FileObject;
-import org.apache.commons.vfs2.FileSystemException;
-import org.apache.commons.vfs2.FileSystemManager;
-import org.apache.commons.vfs2.Selectors;
-import org.apache.commons.vfs2.VFS;
+import org.apache.commons.vfs2.*;
 import org.apache.synapse.MessageContext;
 import org.codehaus.jettison.json.JSONException;
 import org.wso2.carbon.connector.core.AbstractConnector;
@@ -36,6 +28,9 @@ import org.wso2.carbon.connector.core.ConnectException;
 import org.wso2.carbon.connector.core.Connector;
 import org.wso2.carbon.connector.util.FTPSiteUtils;
 import org.wso2.carbon.connector.util.ResultPayloadCreater;
+
+import javax.xml.stream.XMLStreamException;
+import java.io.IOException;
 
 public class FileRename extends AbstractConnector implements Connector {
 
@@ -65,9 +60,9 @@ public class FileRename extends AbstractConnector implements Connector {
 		                                                                                                          messageContext,
 		                                                                                                          "filebeforeprocess").toString();
 		if (log.isDebugEnabled()) {
-			log.info("File creation started..." + filename.toString());
-			log.info("File Location..." + fileLocation.toString());
-			log.info("File content..." + content.toString());
+			log.debug("File creation started..." + filename.toString());
+			log.debug("File Location..." + fileLocation.toString());
+			log.debug("File content..." + content.toString());
 		}
 
 		boolean resultStatus = false;
@@ -141,7 +136,7 @@ public class FileRename extends AbstractConnector implements Connector {
 				remoteFile.moveTo(reNameFile);
 				resultStatus = true;
 				if (log.isDebugEnabled()) {
-					log.info("Rename remote file success");
+					log.debug("Rename remote file success");
 				}
 			}
 		}

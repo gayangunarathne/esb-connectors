@@ -17,16 +17,15 @@
  */
 package org.wso2.carbon.connector.util;
 
-import java.io.IOException;
-
-import javax.xml.stream.XMLStreamException;
-
 import org.apache.axiom.om.OMElement;
 import org.apache.axiom.om.util.AXIOMUtil;
 import org.apache.axiom.soap.SOAPBody;
 import org.apache.synapse.MessageContext;
 import org.apache.synapse.SynapseConstants;
 import org.codehaus.jettison.json.JSONException;
+
+import javax.xml.stream.XMLStreamException;
+import java.io.IOException;
 
 public class ResultPayloadCreater {
 

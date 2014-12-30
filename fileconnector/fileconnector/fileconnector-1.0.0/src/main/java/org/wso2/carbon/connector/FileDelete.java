@@ -17,19 +17,10 @@
  */
 package org.wso2.carbon.connector;
 
-import java.io.IOException;
-
-import javax.xml.stream.XMLStreamException;
-
 import org.apache.axiom.om.OMElement;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.apache.commons.vfs2.FileObject;
-import org.apache.commons.vfs2.FileSystemException;
-import org.apache.commons.vfs2.FileSystemManager;
-import org.apache.commons.vfs2.FileSystemOptions;
-import org.apache.commons.vfs2.Selectors;
-import org.apache.commons.vfs2.VFS;
+import org.apache.commons.vfs2.*;
 import org.apache.synapse.MessageContext;
 import org.codehaus.jettison.json.JSONException;
 import org.wso2.carbon.connector.core.AbstractConnector;
@@ -37,6 +28,9 @@ import org.wso2.carbon.connector.core.ConnectException;
 import org.wso2.carbon.connector.core.Connector;
 import org.wso2.carbon.connector.util.FTPSiteUtils;
 import org.wso2.carbon.connector.util.ResultPayloadCreater;
+
+import javax.xml.stream.XMLStreamException;
+import java.io.IOException;
 
 public class FileDelete extends AbstractConnector implements Connector {
 
@@ -58,8 +52,8 @@ public class FileDelete extends AbstractConnector implements Connector {
 		                                                                                                          messageContext,
 		                                                                                                          "filebeforeprocess").toString();
 		if (log.isDebugEnabled()) {
-			log.info("File deletion started..." + filename.toString());
-			log.info("File Location..." + fileLocation);
+			log.debug("File deletion started..." + filename.toString());
+			log.debug("File Location..." + fileLocation);
 		}
 
 		boolean resultStatus = false;
@@ -128,7 +122,7 @@ public class FileDelete extends AbstractConnector implements Connector {
 			remoteFile.delete();
 			resultStatus = true;
 			if (log.isDebugEnabled()) {
-				log.info("Delete remote file success");
+				log.debug("Delete remote file success");
 			}
 		}
 
