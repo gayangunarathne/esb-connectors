@@ -17,7 +17,10 @@
  */
 package org.wso2.carbon.connector.util;
 
+import org.apache.axiom.om.OMAbstractFactory;
 import org.apache.axiom.om.OMElement;
+import org.apache.axiom.om.OMFactory;
+import org.apache.axiom.om.OMNamespace;
 import org.apache.axiom.om.util.AXIOMUtil;
 import org.apache.axiom.soap.SOAPBody;
 import org.apache.synapse.MessageContext;
@@ -56,7 +59,11 @@ public class ResultPayloadCreater {
 	IOException, JSONException {
 		OMElement resultElement;
 		if (!output.equals("")) {
-			resultElement = AXIOMUtil.stringToOM(output);
+			OMFactory factory = OMAbstractFactory.getOMFactory();
+			OMNamespace ns = factory.createOMNamespace("", "ns");
+			resultElement=factory.createOMElement("result",ns);
+			resultElement.setText(output);
+			//resultElement = AXIOMUtil.stringToOM(output);
 		} else {
 			resultElement = AXIOMUtil.stringToOM("<result></></result>");
 		}

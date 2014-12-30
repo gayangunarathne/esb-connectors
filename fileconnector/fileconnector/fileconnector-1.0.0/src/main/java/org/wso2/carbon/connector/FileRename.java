@@ -60,9 +60,9 @@ public class FileRename extends AbstractConnector implements Connector {
 		                                                                                                          messageContext,
 		                                                                                                          "filebeforeprocess").toString();
 		if (log.isDebugEnabled()) {
-			log.debug("File creation started..." + filename.toString());
-			log.debug("File Location..." + fileLocation.toString());
-			log.debug("File content..." + content.toString());
+			log.debug("File creation started..." + filename);
+			log.debug("File Location..." + fileLocation);
+			log.debug("File content..." + content);
 		}
 
 		boolean resultStatus = false;
@@ -79,8 +79,8 @@ public class FileRename extends AbstractConnector implements Connector {
 	/**
 	 * Generate the output
 	 * 
-	 * @param messageContext
-	 * @param resultStatus
+	 * @param messageContext Message Context
+	 * @param resultStatus result status
 	 */
 	private void generateResult(MessageContext messageContext, boolean resultStatus) {
 		ResultPayloadCreater resultPayload = new ResultPayloadCreater();
@@ -106,11 +106,11 @@ public class FileRename extends AbstractConnector implements Connector {
 	/**
 	 * Rename the files
 	 * 
-	 * @param fileLocation
-	 * @param filename
-	 * @param newFileName
-	 * @param filebeforepprocess
-	 * @return
+	 * @param fileLocation File location
+	 * @param filename File Name
+	 * @param newFileName New File Name
+	 * @param filebeforepprocess File Before Process
+	 * @return Boolean
 	 */
 	private boolean renameFile(String fileLocation, String filename, String newFileName,
 	                           String filebeforepprocess) throws FileSystemException {
@@ -119,13 +119,13 @@ public class FileRename extends AbstractConnector implements Connector {
 		if (manager != null) {
 			// Create remote object
 			FileObject remoteFile =
-			                        manager.resolveFile(fileLocation.toString() +
-			                                                    filename.toString(),
+			                        manager.resolveFile(fileLocation +
+			                                            filename,
 			                                            FTPSiteUtils.createDefaultOptions());
 
 			FileObject reNameFile =
-			                        manager.resolveFile(fileLocation.toString() +
-			                                                    newFileName.toString(),
+			                        manager.resolveFile(fileLocation +
+			                                            newFileName,
 			                                            FTPSiteUtils.createDefaultOptions());
 			if (remoteFile.exists()) {
 				if (!filebeforepprocess.equals("")) {

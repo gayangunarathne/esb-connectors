@@ -47,10 +47,6 @@ public class FileRead extends AbstractConnector implements Connector {
 		                  getParameter(messageContext, "file") == null ? "" : getParameter(
 		                                                                                   messageContext,
 		                                                                                   "file").toString();
-		String content =
-		                 getParameter(messageContext, "content") == null ? "" : getParameter(
-		                                                                                     messageContext,
-		                                                                                     "content").toString();
 		String fileLocation =
 		                      getParameter(messageContext, "filelocation") == null ? "" : getParameter(
 		                                                                                               messageContext,
@@ -62,7 +58,7 @@ public class FileRead extends AbstractConnector implements Connector {
 		                                                                                       "encoding").toString();
 
 		if (log.isDebugEnabled()) {
-			log.debug("File read start with" + filename.toString());
+			log.debug("File read start with" + filename);
 		}
 
 		StringBuilder sb = new StringBuilder();
@@ -78,9 +74,8 @@ public class FileRead extends AbstractConnector implements Connector {
 
 	/**
 	 * Generate the results
-	 * 
-	 * @param messageContext
-	 * @param sb
+	 * @param messageContext Message Context
+	 * @param sb String buffer
 	 */
 	private void generateResults(MessageContext messageContext, StringBuilder sb) {
 		ResultPayloadCreater resultPayload = new ResultPayloadCreater();
@@ -90,13 +85,13 @@ public class FileRead extends AbstractConnector implements Connector {
 			element = resultPayload.performSearchMessages(sb.toString());
 			resultPayload.preparePayload(messageContext, element);
 		} catch (XMLStreamException e) {
-			log.error(e.getMessage());
+			log.error("XML stream exception when generating results",e);
 			handleException(e.getMessage(), messageContext);
 		} catch (IOException e) {
-			log.error(e.getMessage());
+			log.error("IO exception when generating results",e);
 			handleException(e.getMessage(), messageContext);
 		} catch (JSONException e) {
-			log.error(e.getMessage());
+			log.error("JSON exception when generating result",e);
 			handleException(e.getMessage(), messageContext);
 		}
 
@@ -105,16 +100,16 @@ public class FileRead extends AbstractConnector implements Connector {
 	/**
 	 * Read the file content
 	 * 
-	 * @param filename
-	 * @param fileLocation
-	 * @param encoding
-	 * @return
+	 * @param filename File name
+	 * @param fileLocation File location
+	 * @param encoding encoding
+	 * @return StringBuilder
 	 * @throws IOException
 	 */
 	private StringBuilder readFile(String filename, String fileLocation, String encoding)
 	                                                                                     throws IOException {
 
-		InputStream in = null;
+		InputStream in;
 		StringBuilder sb = new StringBuilder();
 
 		FileSystemManager manager = VFS.getManager();

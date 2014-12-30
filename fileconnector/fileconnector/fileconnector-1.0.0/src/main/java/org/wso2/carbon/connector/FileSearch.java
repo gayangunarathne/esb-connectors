@@ -62,7 +62,7 @@ public class FileSearch extends AbstractConnector implements Connector {
 		                                                                                                                        messageContext,
 		                                                                                                                        "searchinlocal").toString());
 		if (log.isDebugEnabled()) {
-			log.debug("File pattern..." + filepattern.toString());
+			log.debug("File pattern..." + filepattern);
 		}
 		if (!searchInLocal) {
 
